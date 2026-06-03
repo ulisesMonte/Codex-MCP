@@ -1,0 +1,13 @@
+"""Scout agent — database / connection repos."""
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from agents.scout_base import scout_agent_node
+
+if TYPE_CHECKING:
+    from orchestrator.state import MCPFactoryState
+
+
+def scout_data_agent_node(state: "MCPFactoryState") -> "MCPFactoryState":
+    return scout_agent_node(state, "data")

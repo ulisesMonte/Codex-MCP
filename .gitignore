@@ -1,0 +1,82 @@
+# ── Secrets & local env ──────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Python ───────────────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+*.cover
+
+# ── IDE / OS ─────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Runtime outputs (generados en cada máquina / sesión) ─────────────────────
+generated/
+!generated/
+!generated/mcps/
+!generated/mcps/.gitkeep
+
+logs/
+!logs/
+!logs/events/
+!logs/events/.gitkeep
+
+registry/*.json
+!registry/
+!registry/.gitkeep
+
+# ── Markdown y docs descargados de GitHub (scripts/sync_*.py) ───────────────
+# Descargar después del clone — ver README.md
+context/docs/*
+!context/docs/
+!context/docs/.gitkeep
+
+context/knowledge/awesome/*
+!context/knowledge/awesome/
+!context/knowledge/awesome/.gitkeep
+
+context/knowledge/validated/*
+!context/knowledge/validated/
+!context/knowledge/validated/.gitkeep
+
+context/scouted/*
+!context/scouted/
+!context/scouted/.gitkeep
+
+context/discovery/*
+!context/discovery/
+!context/discovery/.gitkeep
+
+# ── Cursor / logs locales ────────────────────────────────────────────────────
+.cursor/
+*.log
+
+# Nota: context/knowledge/*.md en la raíz (patrones internos) SÍ pueden commitearse.
+# Los .md dentro de awesome/, docs/, scouted/ y validated/ NO van al repo.

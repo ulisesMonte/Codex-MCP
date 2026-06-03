@@ -1,0 +1,89 @@
+{
+  "description": "Curated technical sources for MCP codegen RAG (Option C). Real docs and code, not link indexes.",
+  "sources": [
+    {
+      "id": "fastmcp",
+      "repo": "jlowin/fastmcp",
+      "prefixes": ["", "docs", "examples"],
+      "max_files": 25,
+      "tags": ["mcp", "fastmcp", "tool"]
+    },
+    {
+      "id": "mcp-python-sdk",
+      "repo": "modelcontextprotocol/python-sdk",
+      "prefixes": ["", "src/mcp"],
+      "max_files": 20,
+      "tags": ["mcp", "stdio", "protocol"]
+    },
+    {
+      "id": "fastapi",
+      "repo": "fastapi/fastapi",
+      "prefixes": ["", "docs/en/docs"],
+      "max_files": 20,
+      "tags": ["fastapi", "api", "rest", "microservice"]
+    },
+    {
+      "id": "httpx",
+      "repo": "encode/httpx",
+      "prefixes": ["", "docs"],
+      "max_files": 15,
+      "tags": ["httpx", "http", "api", "client"]
+    },
+    {
+      "id": "pydantic",
+      "repo": "pydantic/pydantic",
+      "prefixes": ["", "docs"],
+      "max_files": 15,
+      "tags": ["pydantic", "validation", "model"]
+    },
+    {
+      "id": "psycopg",
+      "repo": "psycopg/psycopg",
+      "prefixes": ["", "docs"],
+      "max_files": 15,
+      "tags": ["postgres", "postgresql", "database", "connection"]
+    },
+    {
+      "id": "python-bigquery",
+      "repo": "googleapis/python-bigquery",
+      "prefixes": ["", "docs", "samples"],
+      "max_files": 15,
+      "tags": ["bigquery", "google", "database", "query"]
+    },
+    {
+      "id": "pymongo",
+      "repo": "mongodb/mongo-python-driver",
+      "prefixes": ["", "doc", "test/examples"],
+      "max_files": 12,
+      "tags": ["mongodb", "mongo", "database"]
+    },
+    {
+      "id": "redis-py",
+      "repo": "redis/redis-py",
+      "prefixes": ["", "docs"],
+      "max_files": 12,
+      "tags": ["redis", "cache", "connection"]
+    },
+    {
+      "id": "sqlalchemy",
+      "repo": "sqlalchemy/sqlalchemy",
+      "prefixes": [""],
+      "max_files": 8,
+      "tags": ["sqlalchemy", "orm", "database"]
+    },
+    {
+      "id": "microservices-ref",
+      "repo": "mfornos/awesome-microservices",
+      "prefixes": [""],
+      "max_files": 3,
+      "tags": ["microservice", "architecture"]
+    },
+    {
+      "id": "langchain",
+      "repo": "langchain-ai/langchain",
+      "prefixes": ["", "libs/core/langchain_core"],
+      "max_files": 12,
+      "tags": ["langchain", "llm", "agent"]
+    }
+  ]
+}

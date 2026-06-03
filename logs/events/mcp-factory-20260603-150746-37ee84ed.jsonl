@@ -1,0 +1,1 @@
+{"event_id":"70a3751d-64cd-4027-aca9-6410e796c82f","session_id":"mcp-factory-20260603-150746-37ee84ed","sequence":1,"timestamp":"2026-06-03T18:07:46.257696+00:00","type":"CreateMCPRequested","source":"cli","level":"info","message":"MCP creation session started","payload":{"session_id":"mcp-factory-20260603-150746-37ee84ed"}}

@@ -1,0 +1,4 @@
+@mcp.resource("{{ resource.uri_template }}")
+def {{ resource.name }}({% if resource.params_signature %}{{ resource.params_signature }}{% endif %}) -> {{ resource.return_type }}:
+    """{{ resource.description }}"""
+{{ resource.body }}
