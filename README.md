@@ -197,10 +197,6 @@ Usuario → Requirements (chat + confirm)
        → Deploy → Registry
 ```
 
-Arquitectura detallada: `architecture_v2.md` · Plan de implementación: `implementation_plan.md`.
-
----
-
 ## Arquitectura del código
 
 El proyecto está organizado por **capas** y **dominio**, no como un único paquete `agents/` monolítico.
@@ -302,17 +298,6 @@ from codegen import build_design_from_requirement
 
 Los scouts en modo **eventos** usan el mismo pool vía `orchestrator/scout_runner.py`. LangGraph ya fan-outea scouts con `Send` en modo **langgraph**.
 
-### Principios SOLID aplicados
-
-- **SRP**: cada paquete una responsabilidad (`requirements/`, `codegen/`, `domain/`)
-- **OCP**: handlers de eventos extensibles sin modificar el dispatcher
-- **DIP**: agentes → servicios → dominio; no al revés
-- **DRY**: firmas, mensajes y JSON parse en `shared/` y `llm/json_parse.py`
 
 ---
 
-## Referencias
-
-- [Model Context Protocol](https://modelcontextprotocol.io/)
-- [FastMCP](https://github.com/jlowin/fastmcp)
-- [Ollama](https://ollama.com/)
