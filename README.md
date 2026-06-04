@@ -1,6 +1,6 @@
 # MCP Factory 🤖
 
-Sistema multiagente que genera servidores **Model Context Protocol (MCP)** a partir de lenguaje natural. Describí qué querés automatizar y el sistema diseña, programa, valida y despliega un servidor MCP listo para usar.
+Sistema multiagente que genera servidores **Model Context Protocol (MCP)** a partir de lenguaje natural. Describí qué querés crear y el sistema diseña, programa, valida y despliega un servidor MCP listo para usar.
 
 ---
 
