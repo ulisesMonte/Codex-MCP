@@ -256,7 +256,7 @@ con cantidad de hilos configurable.
 ## Instalación
 
 ```bash
-git clone <repo-url> agentes_mcp
+git clone https://github.com/ulisesMonte/Codex-MCP.git agentes_mcp
 
 cd agentes_mcp
 
