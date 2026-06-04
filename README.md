@@ -432,13 +432,4 @@ context/knowledge/
 
 ---
 
-# Autor
-
-**Ulises Monteverde**
-
-* GitHub
-* LinkedIn
-
----
-
 MCP Factory permite pasar de una descripción funcional a un servidor MCP completamente operativo mediante un pipeline multiagente especializado en investigación, diseño, generación de código, validación y despliegue automatizado.
