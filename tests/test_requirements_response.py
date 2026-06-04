@@ -1,6 +1,6 @@
 import json
 
-from agents.requirements_response import (
+from requirements.response import (
     build_clarification_message,
     parse_requirements_response,
 )

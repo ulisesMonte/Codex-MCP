@@ -2,7 +2,7 @@
 Tests for the Validator Agent — no LLM required, purely deterministic.
 """
 import pytest
-from agents.validator_agent import _validate
+from agents.validator import _validate
 
 
 # ── Valid code samples ────────────────────────────────────────────────────

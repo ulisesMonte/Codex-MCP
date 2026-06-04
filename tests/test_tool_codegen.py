@@ -1,9 +1,9 @@
 """Tests for generic domain-aware codegen (all requirement types)."""
 import ast
 
-from agents.codegen_router import build_design_from_requirement, is_weak_tool_implementation
-from agents.mcp_creator_agent import _render_code
-from agents.validator_agent import _validate
+from codegen.router import build_design_from_requirement, is_weak_tool_implementation
+from agents.creator import _render_code
+from agents.validator import _validate
 from models.mcp_requirement import MCPRequirement, ParameterSpec, ToolSpec
 
 

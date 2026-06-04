@@ -3,14 +3,13 @@ Router — conditional edge logic for the LangGraph StateGraph.
 """
 from __future__ import annotations
 
-import os
-
 from langgraph.graph import END
 from langgraph.types import Send
 
+from config.constants import MAX_VALIDATION_RETRIES
 from orchestrator.state import MCPFactoryState
 
-MAX_RETRIES = int(os.getenv("MAX_VALIDATION_RETRIES", "3"))
+MAX_RETRIES = MAX_VALIDATION_RETRIES
 
 
 def route_after_requirements(state: MCPFactoryState):

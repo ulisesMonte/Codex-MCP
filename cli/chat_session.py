@@ -11,7 +11,7 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from agents.requirements_enrichment import user_facing_gaps
+from requirements.enrichment import user_facing_gaps
 from cli.interaction_ui import agent_prompt_text
 from cli.requirement_summary import format_requirement_snapshot
 from events.view import EventLogView

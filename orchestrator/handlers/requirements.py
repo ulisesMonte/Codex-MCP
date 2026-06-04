@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from agents.requirements_agent import requirements_agent_node
+from agents.requirements import requirements_agent_node
 from events.types import EventTypes
 
 if TYPE_CHECKING:

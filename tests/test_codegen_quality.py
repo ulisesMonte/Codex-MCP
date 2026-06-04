@@ -1,11 +1,11 @@
 """Tests for general code generation quality across requirement types."""
 import ast
 
-from agents.codegen_router import build_design_from_requirement, get_module_helpers, is_weak_tool_implementation
-from agents.mcp_creator_agent import _render_code
-from agents.requirement_intent import GenerationIntent, infer_generation_intent
-from agents.requirements_enrichment import enrich_requirement, finalize_requirement
-from agents.validator_agent import _validate
+from codegen.router import build_design_from_requirement, get_module_helpers, is_weak_tool_implementation
+from agents.creator import _render_code
+from requirements.intent import GenerationIntent, infer_generation_intent
+from requirements.enrichment import enrich_requirement, finalize_requirement
+from agents.validator import _validate
 from langchain_core.messages import HumanMessage
 from models.mcp_requirement import MCPRequirement, ToolSpec
 

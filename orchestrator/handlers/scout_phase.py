@@ -3,17 +3,25 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from agents.scout_api_agent import scout_api_agent_node
-from agents.scout_data_agent import scout_data_agent_node
-from agents.scout_docs_agent import scout_docs_agent_node
-from agents.scout_mcp_agent import scout_mcp_agent_node
-from agents.scout_validator_agent import scout_validator_agent_node
+from agents.scouts.api import scout_api_agent_node
+from agents.scouts.data import scout_data_agent_node
+from agents.scouts.docs import scout_docs_agent_node
+from agents.scouts.mcp import scout_mcp_agent_node
+from agents.scouts.validator import scout_validator_agent_node
 from events.types import EventTypes
+from orchestrator.scout_runner import run_scouts_parallel
 
 if TYPE_CHECKING:
     from events.bus import EventBus
     from events.model import MCPEvent
     from orchestrator.session_state import SessionStateStore
+
+_SCOUT_NODES = (
+    scout_mcp_agent_node,
+    scout_api_agent_node,
+    scout_data_agent_node,
+    scout_docs_agent_node,
+)
 
 
 class ScoutPhaseHandler:
@@ -30,15 +38,8 @@ class ScoutPhaseHandler:
         if state.get("_scout_phase_done"):
             return
 
-        scout_nodes = (
-            scout_mcp_agent_node,
-            scout_api_agent_node,
-            scout_data_agent_node,
-            scout_docs_agent_node,
-        )
-        for node in scout_nodes:
-            result = node(state)
-            state = store.update(session_id, result)
+        scout_updates = run_scouts_parallel(state, _SCOUT_NODES)
+        store.update(session_id, scout_updates)
 
         validator_result = scout_validator_agent_node(store.snapshot(session_id))
         store.update(session_id, {**validator_result, "_scout_phase_done": True})

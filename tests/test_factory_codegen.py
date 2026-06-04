@@ -1,14 +1,14 @@
 """Tests for deterministic microservice factory code generation."""
 import ast
 
-from agents.factory_codegen import (
+from codegen.factory import (
     build_microservice_factory_design,
     is_microservice_factory_requirement,
 )
-from agents.codegen_router import build_design_from_requirement
-from agents.mcp_creator_agent import _render_code
-from agents.codegen_router import is_weak_tool_implementation
-from agents.validator_agent import _validate
+from codegen.router import build_design_from_requirement
+from agents.creator import _render_code
+from codegen.router import is_weak_tool_implementation
+from agents.validator import _validate
 from models.mcp_requirement import MCPRequirement, ParameterSpec, ToolSpec
 
 
@@ -68,7 +68,7 @@ def test_rendered_factory_mcp_is_valid_python_without_stubs():
 
 
 def test_normalize_body_decodes_json_newlines():
-    from agents.mcp_design_agent import _normalize_body
+    from agents.design import _normalize_body
 
     body = _normalize_body("    line1\\n    line2\\n    return x")
     assert "\n" in body

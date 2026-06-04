@@ -1,21 +1,9 @@
 """
-Interfaces package — Abstract Base Classes for all major components.
+Interfaces package — abstractions for dependency inversion.
 
-Dependency Inversion Principle: every module depends on these abstractions,
-not on concrete implementations.
+Only export protocols that exist in this repository; add new ABCs here as
+concrete modules are introduced.
 """
 from interfaces.agent import IAgent
-from interfaces.llm_provider import ILLMProvider
-from interfaces.renderer import ITemplateRenderer
-from interfaces.validator import ICodeChecker
-from interfaces.deployer import IDeployer
-from interfaces.registry import IRegistry
 
-__all__ = [
-    "IAgent",
-    "ILLMProvider",
-    "ITemplateRenderer",
-    "ICodeChecker",
-    "IDeployer",
-    "IRegistry",
-]
+__all__ = ["IAgent"]

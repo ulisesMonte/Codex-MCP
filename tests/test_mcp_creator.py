@@ -1,5 +1,5 @@
 """Tests for FastMCP structure guards in the creator agent."""
-from agents.mcp_creator_agent import (
+from agents.creator import (
     _errors_are_structural,
     _has_fastmcp_structure,
     _render_code,

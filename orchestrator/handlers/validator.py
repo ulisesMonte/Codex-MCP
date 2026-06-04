@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from agents.validator_agent import validator_agent_node
+from agents.validator import validator_agent_node
 from events.types import EventTypes
 
 if TYPE_CHECKING:

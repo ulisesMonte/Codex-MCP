@@ -5,12 +5,40 @@ import re
 import time
 from typing import TYPE_CHECKING
 
-from agents.requirements_enrichment import (
+from events.types import EventTypes
+from requirements.enrichment import (
     agent_asked_confirmation,
     user_accepts_proposal,
     user_confirmed,
     user_rejects_proposal,
 )
+
+# Full redraw at most every N seconds during scouts / pipeline (no console.clear).
+PIPELINE_UI_REFRESH_INTERVAL_S = 3.0
+
+# Append to thinking + allow immediate redraw (still without clear).
+PIPELINE_MILESTONE_EVENTS = frozenset({
+    EventTypes.REQUIREMENTS_COMPLETED,
+    EventTypes.SCOUT_STARTED,
+    EventTypes.SCOUT_COMPLETED,
+    EventTypes.SCOUT_VALIDATION_STARTED,
+    EventTypes.SCOUT_VALIDATION_COMPLETED,
+    EventTypes.DESIGN_STARTED,
+    EventTypes.DESIGN_COMPLETED,
+    EventTypes.DESIGN_FAILED,
+    EventTypes.CODE_GENERATION_STARTED,
+    EventTypes.CODE_GENERATED,
+    EventTypes.VALIDATION_STARTED,
+    EventTypes.VALIDATION_PASSED,
+    EventTypes.VALIDATION_RETRY_SCHEDULED,
+    EventTypes.DEPLOYMENT_STARTED,
+    EventTypes.CODE_READY,
+    EventTypes.MCP_DEPLOYED,
+    EventTypes.REGISTRY_UPDATED,
+    EventTypes.PIPELINE_FAILED,
+    EventTypes.SESSION_FAILED,
+    EventTypes.DEPLOYMENT_FAILED,
+})
 
 if TYPE_CHECKING:
     from orchestrator.state import MCPFactoryState

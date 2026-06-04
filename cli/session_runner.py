@@ -12,7 +12,12 @@ from rich.console import Console
 from cli.chat_session import GatheringChatUI
 from cli.interaction_ui import show_pipeline_finished
 from cli.pipeline_status import status_for_event
-from cli.pipeline_ui import ThrottledRefresher, will_run_full_pipeline
+from cli.pipeline_ui import (
+    PIPELINE_MILESTONE_EVENTS,
+    PIPELINE_UI_REFRESH_INTERVAL_S,
+    ThrottledRefresher,
+    will_run_full_pipeline,
+)
 from cli.ui_context import reset_ui_callbacks, set_ui_callbacks
 from events import EventTypes, get_event_bus, reset_event_bus
 from events.bus import EventBus
@@ -56,7 +61,7 @@ class MCPCreateSessionRunner:
         chat = GatheringChatUI(console=self.console, event_view=event_view)
         pipeline_active: dict[str, bool] = {"on": False}
         waiting_llm: dict[str, bool] = {"on": False}
-        refresher = ThrottledRefresher(min_interval_s=2.5)
+        refresher = ThrottledRefresher(min_interval_s=PIPELINE_UI_REFRESH_INTERVAL_S)
 
         def refresh_ui(*, clear: bool = False, force: bool = False) -> None:
             """Static full-screen redraw — no Rich Live (stable on Windows)."""
@@ -72,8 +77,11 @@ class MCPCreateSessionRunner:
 
             if pipeline_active["on"]:
                 chat.set_status(status)
-                chat.append_thinking(status)
-                refresh_ui(clear=True, force=True)
+                if event.type in PIPELINE_MILESTONE_EVENTS:
+                    chat.append_thinking(status)
+                    refresh_ui(clear=False, force=True)
+                elif refresher.should_refresh():
+                    refresh_ui(clear=False)
                 return
 
             if waiting_llm["on"]:
@@ -89,8 +97,9 @@ class MCPCreateSessionRunner:
         def on_progress(msg: str) -> None:
             chat.set_status(msg)
             if pipeline_active["on"]:
-                chat.append_thinking(msg)
-                refresh_ui(clear=True, force=True)
+                # Status only — milestones/events own the thinking log (no clear).
+                if refresher.should_refresh():
+                    refresh_ui(clear=False)
             elif waiting_llm["on"]:
                 # Status line only — throttle full redraws during long Ollama calls
                 refresh_ui(clear=False)
@@ -98,7 +107,8 @@ class MCPCreateSessionRunner:
         def on_thinking(msg: str) -> None:
             if pipeline_active["on"]:
                 chat.append_thinking(msg)
-                refresh_ui(clear=True, force=True)
+                if refresher.should_refresh():
+                    refresh_ui(clear=False)
 
         bus.subscribe(on_event)
         bus.publish(
@@ -205,8 +215,8 @@ class MCPCreateSessionRunner:
                     break
 
                 if phase == "error":
-                    from orchestrator.graph import _resolve_pipeline_error
-                    err_detail = _resolve_pipeline_error(state)
+                    from orchestrator.pipeline_errors import resolve_pipeline_error
+                    err_detail = resolve_pipeline_error(state)
                     self._publish_failure(
                         bus,
                         "MCP creation session failed",

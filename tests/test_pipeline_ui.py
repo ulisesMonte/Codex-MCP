@@ -3,9 +3,24 @@ import time
 
 from langchain_core.messages import AIMessage, HumanMessage
 
-from agents.requirements_enrichment import enrich_requirement
-from cli.pipeline_ui import ThrottledRefresher, will_run_full_pipeline
+from requirements.enrichment import enrich_requirement
+from events.types import EventTypes
+from cli.pipeline_ui import (
+    PIPELINE_MILESTONE_EVENTS,
+    PIPELINE_UI_REFRESH_INTERVAL_S,
+    ThrottledRefresher,
+    will_run_full_pipeline,
+)
 from models.mcp_requirement import MCPRequirement
+
+
+def test_pipeline_refresh_interval_is_slow_enough_for_stable_ui():
+    assert PIPELINE_UI_REFRESH_INTERVAL_S >= 3.0
+
+
+def test_pipeline_milestone_events_include_scout_phases():
+    assert EventTypes.SCOUT_STARTED in PIPELINE_MILESTONE_EVENTS
+    assert EventTypes.SCOUT_VALIDATION_COMPLETED in PIPELINE_MILESTONE_EVENTS
 
 
 def test_throttled_refresher_default_interval_is_slow():

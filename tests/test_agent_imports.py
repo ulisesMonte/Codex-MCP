@@ -3,7 +3,7 @@ import importlib
 
 
 def test_mcp_design_agent_imports_event_types():
-    mod = importlib.import_module("agents.mcp_design_agent")
+    mod = importlib.import_module("agents.design.node")
     from events.types import EventTypes
 
     assert mod.EventTypes is EventTypes

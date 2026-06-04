@@ -1,7 +1,7 @@
 """Tests for inference-first requirements enrichment."""
 from langchain_core.messages import AIMessage, HumanMessage
 
-from agents.requirements_enrichment import (
+from requirements.enrichment import (
     agent_asked_confirmation,
     combined_user_text,
     decide_status,

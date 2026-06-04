@@ -1,5 +1,5 @@
-from agents.requirements_agent import _merge_requirement
-from agents.requirements_normalize import normalize_clarifications
+from requirements.merge import merge_requirement
+from requirements.normalize import normalize_clarifications
 
 
 def test_normalize_clarification_dict():
@@ -8,7 +8,7 @@ def test_normalize_clarification_dict():
 
 
 def test_merge_accepts_dict_clarifications():
-    req = _merge_requirement(
+    req = merge_requirement(
         {
             "mcp_name": "source_connection",
             "description": "BigQuery source",

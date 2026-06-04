@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from agents.mcp_design_agent import mcp_design_agent_node
+from agents.design import mcp_design_agent_node
 from events.types import EventTypes
 
 if TYPE_CHECKING:

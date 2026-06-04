@@ -26,7 +26,8 @@ htmlcov/
 .tox/
 .nox/
 *.cover
-
+architecture_v2.md
+implementation_plan.md
 # ── IDE / OS ─────────────────────────────────────────────────────────────────
 .idea/
 .vscode/

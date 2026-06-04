@@ -30,7 +30,6 @@ def register_pipeline_handlers(dispatcher) -> None:
         ScoutPhaseHandler(),
         DesignHandler(),
         CreatorHandler(),
-        CreatorRetryHandler(),
         ValidatorHandler(),
         DeployHandler(),
         RegistryHandler(),

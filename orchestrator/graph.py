@@ -16,18 +16,19 @@ from orchestrator.router import (
     route_after_validation,
     route_after_deployer,
 )
-from agents.requirements_agent import requirements_agent_node
-from agents.scout_mcp_agent import scout_mcp_agent_node
-from agents.scout_api_agent import scout_api_agent_node
-from agents.scout_data_agent import scout_data_agent_node
-from agents.scout_docs_agent import scout_docs_agent_node
-from agents.scout_validator_agent import scout_validator_agent_node
-from agents.mcp_design_agent import mcp_design_agent_node
-from agents.mcp_creator_agent import mcp_creator_agent_node
-from agents.validator_agent import validator_agent_node
+from agents.requirements import requirements_agent_node
+from agents.scouts.mcp import scout_mcp_agent_node
+from agents.scouts.api import scout_api_agent_node
+from agents.scouts.data import scout_data_agent_node
+from agents.scouts.docs import scout_docs_agent_node
+from agents.scouts.validator import scout_validator_agent_node
+from agents.design import mcp_design_agent_node
+from agents.creator import mcp_creator_agent_node
+from agents.validator import validator_agent_node
 from deployer.local_deployer import deployer_node
 from events.types import EventTypes
 from orchestrator.events import publish_event
+from orchestrator.pipeline_errors import resolve_pipeline_error
 from registry.registry_manager import registry_updater_node
 
 
@@ -35,7 +36,7 @@ def error_handler_node(state: MCPFactoryState) -> MCPFactoryState:
     from rich.console import Console
     from rich.panel import Panel
     console = Console()
-    error = _resolve_pipeline_error(state)
+    error = resolve_pipeline_error(state)
     attempts = state.get("validation_attempts", 0)
     publish_event(
         state,
@@ -56,17 +57,6 @@ def error_handler_node(state: MCPFactoryState) -> MCPFactoryState:
         )
     )
     return {**state, "phase": "error", "error": error}
-
-
-def _resolve_pipeline_error(state: MCPFactoryState) -> str:
-    err = state.get("error")
-    if err:
-        return str(err)
-    generated = state.get("generated_mcp")
-    if generated and generated.validation_errors:
-        lines = "\n".join(f"• {e}" for e in generated.validation_errors)
-        return f"Generated code validation failed:\n{lines}"
-    return "Unknown pipeline error. Check events or generated/mcps/."
 
 
 def build_graph() -> StateGraph:
@@ -122,6 +112,7 @@ def build_graph() -> StateGraph:
         serde=JsonPlusSerializer(
             allowed_msgpack_modules=[
                 ("models.mcp_requirement", "OutputMode"),
+                ("models.mcp_requirement", "GenerationIntent"),
                 ("models.mcp_requirement", "MCPRequirement"),
                 ("models.mcp_requirement", "ToolSpec"),
                 ("models.mcp_requirement", "ParameterSpec"),

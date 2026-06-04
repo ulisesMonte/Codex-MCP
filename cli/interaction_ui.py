@@ -4,7 +4,8 @@ from __future__ import annotations
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 
 from cli.requirement_summary import format_requirement_snapshot
-from agents.requirements_enrichment import user_facing_gaps
+from shared.messages import last_agent_message
+from requirements.enrichment import user_facing_gaps
 from models.checklist_labels import CHECKLIST_LABELS
 from models.mcp_requirement import MCPRequirement
 from orchestrator.state import MCPFactoryState
@@ -31,15 +32,6 @@ def agent_prompt_text(state: MCPFactoryState) -> str:
     if prompt:
         return prompt
     return last_agent_message(state.get("messages", [])) or ""
-
-
-def last_agent_message(messages: list[BaseMessage]) -> str | None:
-    for msg in reversed(messages):
-        if isinstance(msg, AIMessage) and msg.content:
-            text = str(msg.content).strip()
-            if text and not text.startswith("{"):
-                return text
-    return None
 
 
 def show_session_intro(console: Console, session_id: str) -> None:
@@ -206,8 +198,8 @@ def show_requirement_snapshot_panel(console: Console, requirement: MCPRequiremen
 def show_pipeline_finished(console: Console, state: MCPFactoryState) -> None:
     phase = state.get("phase", "done")
     if phase == "error":
-        from orchestrator.graph import _resolve_pipeline_error
-        error = _resolve_pipeline_error(state)
+        from orchestrator.pipeline_errors import resolve_pipeline_error
+        error = resolve_pipeline_error(state)
         console.print(
             Panel(
                 f"[red]{error}[/red]\n\n"

@@ -6,7 +6,7 @@ _ROOT = Path(__file__).resolve().parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-from agents.scout_validator_agent import _validate_reports
+from agents.scouts.validator import _validate_reports
 from context.docs_scout import run_docs_scout
 from context.feedback_store import persist_validated_research
 from context.repo_scout import _rank_repos, _score_slug
